@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Search, Filter, ChevronDown } from 'lucide-react';
 import ServiceCard from '../components/common/ServiceCard';
+import services from '../data/services';
 
 const Services = () => {
   const [filters, setFilters] = useState({
@@ -10,100 +11,6 @@ const Services = () => {
     rating: '',
   });
   const [showFilters, setShowFilters] = useState(false);
-
-  // Mock data for services - in a real app, this would come from an API
-  const services = [
-    {
-      id: 1,
-      title: 'I will design a professional logo for your business',
-      category: 'Graphics & Design',
-      price: 50,
-      rating: 4.9,
-      reviewCount: 156,
-      deliveryTime: '2 days',
-      seller: {
-        name: 'Alex Johnson',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'Level 2 Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: 2,
-      title: 'I will develop a responsive website using React',
-      category: 'Programming & Tech',
-      price: 120,
-      rating: 4.8,
-      reviewCount: 89,
-      deliveryTime: '5 days',
-      seller: {
-        name: 'Sarah Williams',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'Top Rated Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: 3,
-      title: 'I will create engaging social media content',
-      category: 'Digital Marketing',
-      price: 75,
-      rating: 4.7,
-      reviewCount: 112,
-      deliveryTime: '3 days',
-      seller: {
-        name: 'Michael Chen',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'Level 1 Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: 4,
-      title: 'I will write SEO-optimized blog articles',
-      category: 'Writing & Translation',
-      price: 45,
-      rating: 4.9,
-      reviewCount: 203,
-      deliveryTime: '2 days',
-      seller: {
-        name: 'Emily Rodriguez',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'Level 2 Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: 5,
-      title: 'I will create a professional video intro',
-      category: 'Video & Animation',
-      price: 85,
-      rating: 4.8,
-      reviewCount: 78,
-      deliveryTime: '4 days',
-      seller: {
-        name: 'David Kim',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'Level 1 Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-    {
-      id: 6,
-      title: 'I will do data analysis and visualization',
-      category: 'Data',
-      price: 95,
-      rating: 4.7,
-      reviewCount: 64,
-      deliveryTime: '3 days',
-      seller: {
-        name: 'Jessica Lee',
-        avatar: 'https://via.placeholder.com/40',
-        level: 'New Seller',
-      },
-      image: 'https://via.placeholder.com/300x200',
-    },
-  ];
 
   // Categories for filter
   const categories = [

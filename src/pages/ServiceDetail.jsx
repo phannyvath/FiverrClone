@@ -1,124 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star, Clock, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import ServiceCard from '../components/common/ServiceCard';
+import services from '../data/services';
 
 const ServiceDetail = () => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState('basic');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
 
-  // Mock service data - in a real app, this would be fetched from an API
-  const service = {
-    id: parseInt(id),
-    title: 'I will design a professional logo for your business',
-    description: 'I will create a modern, unique, and professional logo design for your business or brand. My designs are creative, memorable, and tailored to your specific needs. I use the latest design techniques and tools to ensure high-quality results that will make your brand stand out from the competition.',
-    category: 'Graphics & Design',
-    subcategory: 'Logo Design',
-    tags: ['logo', 'branding', 'business', 'design'],
-    images: [
-      'https://via.placeholder.com/800x500?text=Logo+Design+1',
-      'https://via.placeholder.com/800x500?text=Logo+Design+2',
-      'https://via.placeholder.com/800x500?text=Logo+Design+3',
-      'https://via.placeholder.com/800x500?text=Logo+Design+4',
-    ],
-    packages: {
-      basic: {
-        name: 'Basic',
-        description: 'One concept logo design with minimal revisions',
-        price: 50,
-        deliveryTime: '2 days',
-        revisions: 1,
-        features: [
-          'Logo in JPG format',
-          'One concept',
-          'Logo transparency',
-          'Color options',
-        ],
-      },
-      standard: {
-        name: 'Standard',
-        description: 'Three concept logo designs with more revisions',
-        price: 100,
-        deliveryTime: '3 days',
-        revisions: 3,
-        features: [
-          'Logo in JPG & PNG formats',
-          'Three concepts',
-          'Logo transparency',
-          'Color options',
-          'Vector file',
-          'Source file',
-        ],
-      },
-      premium: {
-        name: 'Premium',
-        description: 'Five concept logo designs with unlimited revisions',
-        price: 150,
-        deliveryTime: '5 days',
-        revisions: 'Unlimited',
-        features: [
-          'Logo in all formats',
-          'Five concepts',
-          'Logo transparency',
-          'Color options',
-          'Vector file',
-          'Source file',
-          'Social media kit',
-          'Stationery design',
-        ],
-      },
-    },
-    seller: {
-      id: 101,
-      name: 'Alex Johnson',
-      avatar: 'https://via.placeholder.com/100',
-      level: 'Level 2 Seller',
-      rating: 4.9,
-      reviewCount: 156,
-      responseTime: '1 hour',
-      lastDelivery: 'about 2 hours ago',
-      memberSince: 'Jun 2020',
-      location: 'United States',
-      description: 'Professional graphic designer with over 5 years of experience in logo design and branding. I specialize in creating unique and memorable logos that help businesses stand out in their industry.',
-      languages: ['English', 'Spanish'],
-    },
-    reviews: [
-      {
-        id: 1,
-        user: {
-          name: 'John Smith',
-          avatar: 'https://via.placeholder.com/40',
-          country: 'United Kingdom',
-        },
-        rating: 5,
-        date: '2 weeks ago',
-        comment: 'Excellent work! Alex delivered exactly what I was looking for. The logo is perfect for my business and the communication was great throughout the process.',
-      },
-      {
-        id: 2,
-        user: {
-          name: 'Maria Garcia',
-          avatar: 'https://via.placeholder.com/40',
-          country: 'Spain',
-        },
-        rating: 4,
-        date: '1 month ago',
-        comment: 'Good work overall. The design needed a few revisions but Alex was patient and made all the changes I requested. Happy with the final result.',
-      },
-      {
-        id: 3,
-        user: {
-          name: 'Robert Chen',
-          avatar: 'https://via.placeholder.com/40',
-          country: 'Canada',
-        },
-        rating: 5,
-        date: '2 months ago',
-        comment: 'Amazing service! Fast delivery and excellent quality. I highly recommend Alex for any logo design needs.',
-      },
-    ],
-  };
+  // Find the service by id
+  const service = services.find((s) => s.id === parseInt(id));
+
+  if (!service) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-4">Service Not Found</h1>
+        <p className="text-gray-600">The service you are looking for does not exist.</p>
+      </div>
+    );
+  }
 
   // Mock related services
   const relatedServices = [
@@ -132,10 +34,10 @@ const ServiceDetail = () => {
       deliveryTime: '1 day',
       seller: {
         name: 'Alex Johnson',
-        avatar: 'https://via.placeholder.com/40',
+        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop',
         level: 'Level 2 Seller',
       },
-      image: 'https://via.placeholder.com/300x200?text=Business+Card',
+      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=300&h=200&fit=crop',
     },
     {
       id: 8,
@@ -147,10 +49,10 @@ const ServiceDetail = () => {
       deliveryTime: '7 days',
       seller: {
         name: 'Sarah Williams',
-        avatar: 'https://via.placeholder.com/40',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
         level: 'Top Rated Seller',
       },
-      image: 'https://via.placeholder.com/300x200?text=Brand+Identity',
+      image: 'https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=300&h=200&fit=crop',
     },
     {
       id: 9,
@@ -162,10 +64,10 @@ const ServiceDetail = () => {
       deliveryTime: '3 days',
       seller: {
         name: 'Michael Chen',
-        avatar: 'https://via.placeholder.com/40',
+        avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop',
         level: 'Level 1 Seller',
       },
-      image: 'https://via.placeholder.com/300x200?text=T-Shirt+Design',
+      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=300&h=200&fit=crop',
     },
   ];
 
@@ -194,6 +96,10 @@ const ServiceDetail = () => {
     ));
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumb */}
@@ -219,7 +125,11 @@ const ServiceDetail = () => {
             <img 
               src={service.seller.avatar} 
               alt={service.seller.name} 
-              className="w-10 h-10 rounded-full mr-3" 
+              className="w-10 h-10 rounded-full mr-3"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(service.seller.name);
+              }}
             />
             <div>
               <p className="font-medium">{service.seller.name}</p>
@@ -234,12 +144,19 @@ const ServiceDetail = () => {
           
           {/* Service Images */}
           <div className="mb-8">
-            <div className="relative rounded-lg overflow-hidden h-80 mb-2">
-              <img 
-                src={service.images[currentImageIndex]} 
-                alt={`${service.title} - Image ${currentImageIndex + 1}`} 
-                className="w-full h-full object-cover" 
-              />
+            <div className="relative rounded-lg overflow-hidden h-80 mb-2 bg-gray-100">
+              {!imageError ? (
+                <img 
+                  src={service.images[currentImageIndex]} 
+                  alt={`${service.title} - Image ${currentImageIndex + 1}`} 
+                  className="w-full h-full object-cover"
+                  onError={handleImageError}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500">
+                  <p>Image not available</p>
+                </div>
+              )}
               <button 
                 onClick={prevImage}
                 className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100"
@@ -265,7 +182,11 @@ const ServiceDetail = () => {
                   <img 
                     src={image} 
                     alt={`Thumbnail ${index + 1}`} 
-                    className="w-full h-full object-cover" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://ui-avatars.com/api/?name=Logo&background=random';
+                    }}
                   />
                 </button>
               ))}
